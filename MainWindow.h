@@ -14,6 +14,7 @@ public:
     explicit MainWindow(QWidget* parent = 0);
 
 private slots:
+    void onReload();
     void onFileClicked(const QModelIndex& idx);
 
 private:

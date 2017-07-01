@@ -26,13 +26,18 @@ SOURCES += \
 	Main.cpp \
     GraphicsScene.cpp \
     ShapeItem.cpp \
-    CellMap.cpp
+    CellMap.cpp \
+    GraphicsView.cpp
 
 HEADERS += \
         MainWindow.h \
     GraphicsScene.h \
     ShapeItem.h \
-    CellMap.h
+    CellMap.h \
+    GraphicsView.h
 
 FORMS += \
         MainWindow.ui
+
+RESOURCES += \
+    Resources.qrc
