@@ -7,16 +7,27 @@
 
 typedef QList<int> Cluster;
 
+class ShapeItem;
+class CellMapFileModel;
+
 class GraphicsScene : public QGraphicsScene
 {
+    Q_OBJECT
+
 public:
     GraphicsScene(QObject* parent = Q_NULLPTR);
 
-    void setCellMaps(const QMap<int, CellMap>& cellmaps);
+    void setFileModel(CellMapFileModel* model);
     void setClusters(const QList<Cluster>& clusters);
 
+private slots:
+    void onItemSelected();
+
+signals:
+    void cellmapSelected(CellMap* cellmap);
+
 private:
-    QMap<int, CellMap> _cellmaps;
+    CellMapFileModel* _fileModel;
 };
 
 #endif // GRAPHICSSCENE_H

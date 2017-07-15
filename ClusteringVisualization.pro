@@ -27,17 +27,35 @@ SOURCES += \
     GraphicsScene.cpp \
     ShapeItem.cpp \
     CellMap.cpp \
-    GraphicsView.cpp
+    GraphicsView.cpp \
+    IPage.cpp \
+    PageConstructions.cpp \
+    PageWidget.cpp \
+    PageClustering.cpp \
+    CellMapModel.cpp \
+    CellMapFileModel.cpp
 
 HEADERS += \
         MainWindow.h \
     GraphicsScene.h \
     ShapeItem.h \
     CellMap.h \
-    GraphicsView.h
+    GraphicsView.h \
+    IPage.h \
+    PageConstructions.h \
+    PageWidget.h \
+    PageClustering.h \
+    CellMapModel.h \
+    CellMapFileModel.h
 
 FORMS += \
-        MainWindow.ui
+        MainWindow.ui \
+    PageConstructions.ui \
+    PageWidget.ui
 
 RESOURCES += \
     Resources.qrc
+
+macx {
+	ICON = Images/GuidedPlayIcon.icns
+}

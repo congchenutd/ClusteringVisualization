@@ -8,64 +8,29 @@ MainWindow::MainWindow(QWidget* parent) :
     QMainWindow(parent)
 {
     ui.setupUi(this);
-    ui.splitter->setSizes(QList<int>() << 150 << 800);
 
-    onReload();
-    ui.listView->setModel(&_model);
-    ui.listView->setRootIndex(_model.index(QDir::currentPath()));
+    onCurrentTabChanged(ui.tabWidget->currentIndex());
 
+    connect(ui.tabWidget,       &QTabWidget::currentChanged,   this, &MainWindow::onCurrentTabChanged);
     connect(ui.actionReload,    &QAction::triggered, this, &MainWindow::onReload);
-    connect(ui.actionZoomIn,    &QAction::triggered, ui.graphicsView, &GraphicsView::zoomIn);
-    connect(ui.actionZoomOut,   &QAction::triggered, ui.graphicsView, &GraphicsView::zoomOut);
-    connect(ui.listView,        &QListView::clicked, this, &MainWindow::onFileClicked);
-
-    ui.graphicsView->setScene(&_scene);
+    connect(ui.actionZoomIn,    &QAction::triggered, this, &MainWindow::onZoomIn);
+    connect(ui.actionZoomOut,   &QAction::triggered, this, &MainWindow::onZoomOut);
 }
 
-void MainWindow::onReload()
+void MainWindow::onCurrentTabChanged(int index)
 {
-    _model.setRootPath("");
-    _model.setRootPath(QDir::currentPath());
-    _model.setResolveSymlinks(false);
-    _model.setNameFilterDisables(false);
-    _model.setFilter(QDir::Files);
-    _model.setNameFilters(QStringList() << "*.clusters");
+    _currentPage = static_cast<IPage*>(ui.tabWidget->widget(index));
+    _currentPage->reload();
 }
 
-void MainWindow::onFileClicked(const QModelIndex& idx)
-{
-    // load clusters
-    auto clustersFilePath = _model.data(idx).toString();
-    QFile clustersFile(clustersFilePath);
-    if (!clustersFile.open(QFile::ReadOnly))
-        return;
+void MainWindow::onReload() {
+    _currentPage->reload();
+}
 
-    QList<Cluster> clusters;
-    QString fileContent = clustersFile.readAll();
-    QRegularExpression rx("\\[(\\d+(,\\s*\\d+)*)\\]");
-    auto it = rx.globalMatch(fileContent);
-    while (it.hasNext())
-    {
-        auto match = it.next();
-        Cluster cluster;
-        foreach (auto id, match.captured(1).split(", ", QString::SkipEmptyParts))
-            cluster << id.toInt();
-        clusters << cluster;
-    }
+void MainWindow::onZoomIn() {
+    _currentPage->zoomIn();
+}
 
-    // load cellmaps
-    QFileInfo fileInfo(clustersFilePath);
-    auto baseName = fileInfo.baseName();
-    if (baseName.contains("-"))
-        baseName = baseName.split("-").first().simplified();
-    auto cellmapFilePath = fileInfo.path() + QDir::separator() + baseName + ".json";
-    QFile cellmapsFile(cellmapFilePath);
-    if (!cellmapsFile.open(QFile::ReadOnly))
-        return;
-
-    _scene.setCellMaps(CellMap::fromJson(cellmapsFile.readAll()));
-    _scene.setClusters(clusters);
-    _scene.setSceneRect(_scene.itemsBoundingRect());
-    ui.graphicsView->setSceneRect(_scene.sceneRect().adjusted(-50, -50, 100, 100));
-    ui.graphicsView->zoomActual();
+void MainWindow::onZoomOut() {
+    _currentPage->zoomOut();
 }

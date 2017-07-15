@@ -1,13 +1,15 @@
 #include "GraphicsScene.h"
 #include "ShapeItem.h"
+#include "CellMapFileModel.h"
 
 GraphicsScene::GraphicsScene(QObject* parent)
     : QGraphicsScene (parent)
 {
+    connect(this, &GraphicsScene::selectionChanged, this, &GraphicsScene::onItemSelected);
 }
 
-void GraphicsScene::setCellMaps(const QMap<int, CellMap>& cellmaps) {
-    _cellmaps = cellmaps;
+void GraphicsScene::setFileModel(CellMapFileModel* model) {
+    _fileModel = model;
 }
 
 void GraphicsScene::setClusters(const QList<Cluster>& clusters)
@@ -25,10 +27,19 @@ void GraphicsScene::setClusters(const QList<Cluster>& clusters)
         int y = (height + space) * row++;
         foreach (auto id, cluster)
         {
-            auto item = new ShapeItem(_cellmaps[id]);
+            auto item = new ShapeItem(_fileModel->getCellMap(id));
             addItem(item);
             item->setPos(x + item->boundingRect().width() / 2, y);
             x += item->boundingRect().width() + space;
         }
     }
+}
+
+void GraphicsScene::onItemSelected()
+{
+    auto selected = selectedItems();
+    if (selected.isEmpty())
+        emit cellmapSelected(0);
+    else
+        emit cellmapSelected(static_cast<ShapeItem*>(selected.front())->getCellMap());
 }

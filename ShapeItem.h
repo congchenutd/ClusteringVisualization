@@ -8,18 +8,20 @@
 class ShapeItem : public QGraphicsItem
 {
 public:
-    ShapeItem(const CellMap& cellmap, QGraphicsItem* parent = Q_NULLPTR);
+    ShapeItem(CellMap* cellmap, QGraphicsItem* parent = Q_NULLPTR);
 
+    QRectF rect() const;
     QRectF boundingRect() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
+    CellMap* getCellMap() const;
 
 private:
-    CellMap _cellmap;
+    CellMap* _cellmap;
 
     static QList<QColor> _colors;
 
 public:
-    static const int CellSize = 5;
+    static const int CellSize = 5;  // cell's width in pixel
 };
 
 #endif // SHAPEITEM_H

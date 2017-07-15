@@ -6,22 +6,34 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>505</width>
-    <height>327</height>
+    <width>842</width>
+    <height>594</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Clustering Visualization</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="Resources.qrc">
+    <normaloff>:/Images/GuidedPlayIcon.png</normaloff>:/Images/GuidedPlayIcon.png</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout">
+   <layout class="QHBoxLayout" name="horizontalLayout_2">
     <item>
-     <widget class="QSplitter" name="splitter">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>1</number>
       </property>
-      <widget class="QListView" name="listView"/>
-      <widget class="GraphicsView" name="graphicsView"/>
+      <widget class="PageConstructions" name="tabConstructions">
+       <attribute name="title">
+        <string>Constructions</string>
+       </attribute>
+      </widget>
+      <widget class="PageClustering" name="tabClustering">
+       <attribute name="title">
+        <string>Clustering</string>
+       </attribute>
+      </widget>
      </widget>
     </item>
    </layout>
@@ -31,7 +43,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>505</width>
+     <width>842</width>
      <height>22</height>
     </rect>
    </property>
@@ -94,9 +106,16 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>GraphicsView</class>
-   <extends>QGraphicsView</extends>
-   <header>GraphicsView.h</header>
+   <class>PageClustering</class>
+   <extends>QWidget</extends>
+   <header>PageClustering.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>PageConstructions</class>
+   <extends>QWidget</extends>
+   <header>PageConstructions.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

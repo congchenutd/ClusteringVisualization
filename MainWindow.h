@@ -1,10 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include "GraphicsScene.h"
 #include "ui_MainWindow.h"
 
-#include <QFileSystemModel>
+class IPage;
 
 class MainWindow : public QMainWindow
 {
@@ -14,14 +13,15 @@ public:
     explicit MainWindow(QWidget* parent = 0);
 
 private slots:
+    void onCurrentTabChanged(int index);
     void onReload();
-    void onFileClicked(const QModelIndex& idx);
+    void onZoomIn();
+    void onZoomOut();
 
 private:
     Ui::MainWindow ui;
 
-    QFileSystemModel    _model;
-    GraphicsScene       _scene;
+    IPage*  _currentPage;
 };
 
 #endif // MAINWINDOW_H

@@ -3,5 +3,7 @@
         <file>Images/Refresh.png</file>
         <file>Images/ZoomIn.png</file>
         <file>Images/ZoomOut.png</file>
+        <file>Images/GuidedPlayIcon.icns</file>
+        <file>Images/GuidedPlayIcon.png</file>
     </qresource>
 </RCC>
