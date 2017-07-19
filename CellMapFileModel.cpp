@@ -5,11 +5,6 @@
 #include <QJsonDocument>
 #include <QTextStream>
 
-CellMapFileModel::CellMapFileModel()
-{
-
-}
-
 void CellMapFileModel::setFilePath(const QString& filePath)
 {
     if (!_filePath.isEmpty())
@@ -27,6 +22,18 @@ CellMap* CellMapFileModel::getCellMap(int id) const {
     return _cellmaps.value(id);
 }
 
+/**
+ * @return all cellmaps packed as a list of clusters, each cluster has one id
+ */
+QList<Cluster> CellMapFileModel::getCellMaps() const
+{
+    QList<Cluster> result;
+    foreach (auto id, _cellmaps.keys())
+        result << (Cluster() << id);
+    return result;
+}
+
+// Save the cellmaps back to file
 void CellMapFileModel::save()
 {
     QJsonArray jsonArray;

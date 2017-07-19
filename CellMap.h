@@ -28,7 +28,7 @@ public:
     QDateTime getDateTime() const;
     void setDateTime(const QDateTime& dateTime);
 
-    QString getValues() const;
+    QString getValues() const;                  // values to a 1d comma-separated String
 
     QVector<int>& operator[] (int index);
 
@@ -40,7 +40,7 @@ private:
     int                     _id;
     int                     _templateID;
     QDateTime               _dateTime;
-    QVector<QVector<int>>   _array;
+    QVector<QVector<int>>   _array;     // 2d array
 };
 
 #endif // CELLMAP_H

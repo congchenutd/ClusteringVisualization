@@ -10,12 +10,13 @@ PageWidget::PageWidget(QWidget *parent) :
     ui.listView->setModel(&_fsModel);
     ui.listView->setRootIndex(_fsModel.index(QDir::currentPath()));
 
+    _scene.setFileModel(&_fileModel);
     ui.graphicsView->setScene(&_scene);
-
     ui.tableView->setModel(&_cellmapModel);
 
-    connect(ui.listView, &QListView::clicked, this, &PageWidget::onFileClicked);
-    connect(&_scene, &GraphicsScene::cellmapSelected, this, &PageWidget::onCellMapSelected);
+    connect(ui.listView,    &QListView::clicked,                this, &PageWidget::onFileClicked);
+    connect(&_scene,        &GraphicsScene::cellmapSelected,    this, &PageWidget::onCellMapSelected);
+    connect(&_cellmapModel, &CellMapModel::dataSubmitted,       this, &PageWidget::onCellMapModified);
 }
 
 void PageWidget::zoomIn() {
@@ -45,4 +46,8 @@ void PageWidget::onCellMapSelected(CellMap* cellmap)
         _cellmapModel.setCellMap(cellmap);
         ui.tableView->resizeRowsToContents();
     }
+}
+
+void PageWidget::onCellMapModified() {
+    _fileModel.save();
 }

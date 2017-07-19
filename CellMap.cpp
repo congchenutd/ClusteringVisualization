@@ -18,7 +18,7 @@ CellMap::CellMap(int id, int nRows, int nCols)
 
 CellMap::CellMap(const CellMap& another)
 {
-    _id     = another.getID();
+    _id     = another._id;
     _array  = another._array;
 }
 
@@ -98,6 +98,10 @@ CellMap* CellMap::fromJson(const QJsonObject& jsonObj)
     return cellmap;
 }
 
+/**
+ * @param byteArray - content of a json array representing cellmaps
+ * @return          - a collection of cellmaps
+ */
 CellMaps CellMap::fromJson(const QByteArray& byteArray)
 {
     CellMaps result;

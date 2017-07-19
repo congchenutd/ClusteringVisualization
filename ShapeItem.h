@@ -5,12 +5,15 @@
 
 #include <QGraphicsItem>
 
+/**
+ * An item representing a cellmap
+ */
 class ShapeItem : public QGraphicsItem
 {
 public:
     ShapeItem(CellMap* cellmap, QGraphicsItem* parent = Q_NULLPTR);
 
-    QRectF rect() const;
+    QRectF contentRect() const;
     QRectF boundingRect() const;
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget);
     CellMap* getCellMap() const;

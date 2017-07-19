@@ -2,7 +2,6 @@
 #define PAGECONSTRUCTIONS_H
 
 #include "PageWidget.h"
-#include "ui_PageConstructions.h"
 
 class PageConstructions : public PageWidget
 {
@@ -12,11 +11,9 @@ public:
     explicit PageConstructions(QWidget* parent = 0);
 
     void reload();
-    void zoomIn();
-    void zoomOut();
 
-private:
-    Ui::PageConstructions ui;
+protected:
+    void fileClicked(const QModelIndex& idx);
 };
 
 #endif // PAGECONSTRUCTIONS_H

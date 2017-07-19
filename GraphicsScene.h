@@ -10,6 +10,9 @@ typedef QList<int> Cluster;
 class ShapeItem;
 class CellMapFileModel;
 
+/**
+ * A scene for showing cellmaps
+ */
 class GraphicsScene : public QGraphicsScene
 {
     Q_OBJECT

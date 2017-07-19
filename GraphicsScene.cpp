@@ -20,6 +20,22 @@ void GraphicsScene::setClusters(const QList<Cluster>& clusters)
     const int height    = ShapeItem::CellSize * nRows;
     const int space     = 20;
 
+//    if (clusters.isEmpty())
+//    {
+//        int row = 0;
+//        for (int id = 1; id <= _fileModel->getCellMapCount(); ++id)
+//        {
+//            int x = 0;
+//            int y = (height + space) * row++;
+//            auto item = new ShapeItem(_fileModel->getCellMap(id));
+//            addItem(item);
+//            item->setPos(x + item->boundingRect().width() / 2, y);
+//        }
+//        return;
+//    }
+
+
+    // Create ShapeItems and place them on the scene one cluster a row
     int row = 0;
     foreach (auto cluster, clusters)
     {

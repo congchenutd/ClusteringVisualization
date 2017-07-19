@@ -25,7 +25,7 @@ QList<QColor> ShapeItem::_colors = QList<QColor>()  << Qt::blue
 QRectF ShapeItem::boundingRect() const
 {
     const int PenWidth = 4;
-    return rect().adjusted(-PenWidth/2, -PenWidth/2, PenWidth/2, PenWidth/2);
+    return contentRect().adjusted(-PenWidth/2, -PenWidth/2, PenWidth/2, PenWidth/2);
 }
 
 void ShapeItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
@@ -35,10 +35,10 @@ void ShapeItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
 
     painter->setPen(Qt::black);
     painter->setBrush(Qt::transparent);
-    painter->drawRect(rect());
+    painter->drawRect(contentRect());
 
     painter->setPen(Qt::transparent);
-    auto bottomLeft = rect().bottomLeft();
+    auto bottomLeft = contentRect().bottomLeft();
     for (int row = 0; row < _cellmap->rowCount(); ++row)
         for (int col = 0; col < _cellmap->columnCount(); ++col)
         {
@@ -64,7 +64,7 @@ CellMap* ShapeItem::getCellMap() const {
     return _cellmap;
 }
 
-QRectF ShapeItem::rect() const
+QRectF ShapeItem::contentRect() const
 {
     const int width  = CellSize * _cellmap->columnCount();
     const int height = CellSize * _cellmap->rowCount();

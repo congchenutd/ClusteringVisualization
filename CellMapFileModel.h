@@ -3,14 +3,17 @@
 
 #include <QString>
 #include "CellMap.h"
+#include "GraphicsScene.h"
 
+/**
+ * A model representing a cellmap (.json) file
+ */
 class CellMapFileModel
 {
 public:
-    CellMapFileModel();
-
     void setFilePath(const QString& filePath);
     CellMap* getCellMap(int id) const;
+    QList<Cluster> getCellMaps() const;
     void save();
 
 private:

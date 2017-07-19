@@ -16,7 +16,7 @@ void GraphicsView::zoomOut() {
 }
 
 void GraphicsView::zoomActual() {
-    this->resetMatrix();
+    resetMatrix();
 }
 
 bool GraphicsView::event(QEvent* event)
@@ -29,7 +29,7 @@ bool GraphicsView::event(QEvent* event)
 bool GraphicsView::gestureEvent(QGestureEvent* event)
 {
     if (QGesture* pinch = event->gesture(Qt::PinchGesture))
-        pinchTriggered(static_cast<QPinchGesture *>(pinch));
+        pinchTriggered(static_cast<QPinchGesture*>(pinch));
     return true;
 }
 

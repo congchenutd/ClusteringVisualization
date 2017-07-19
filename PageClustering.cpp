@@ -13,6 +13,8 @@ void PageClustering::reload()
     _fsModel.setResolveSymlinks(false);
     _fsModel.setNameFilterDisables(false);
     _fsModel.setFilter(QDir::Files);
+
+    // only .clusters, corresponding .json file will be loaded when .clusters is clicked
     _fsModel.setNameFilters(QStringList() << "*.clusters");
 }
 
@@ -37,15 +39,14 @@ void PageClustering::fileClicked(const QModelIndex& idx)
         clusters << cluster;
     }
 
-    // reload cellmaps
-    QFileInfo fileInfo(clustersFilePath);
+    // load cellmaps
+    QFileInfo fileInfo(clustersFilePath);   // e.g., "carl - free play.clusters"
     auto baseName = fileInfo.baseName();
     if (baseName.contains("-"))
-        baseName = baseName.split("-").first().simplified();
-    auto cellmapFilePath = fileInfo.path() + QDir::separator() + baseName + ".json";
+        baseName = baseName.split("-").first().simplified();    // "carl"
+    auto cellmapFilePath = fileInfo.path() + QDir::separator() + baseName + ".json";    // "carl.json"
     _fileModel.setFilePath(cellmapFilePath);
 
-    _scene.setFileModel(&_fileModel);
     _scene.setClusters(clusters);
     _scene.setSceneRect(_scene.itemsBoundingRect());
     ui.graphicsView->setSceneRect(_scene.sceneRect().adjusted(-50, -50, 100, 100));

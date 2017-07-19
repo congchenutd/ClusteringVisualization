@@ -48,7 +48,10 @@ bool CellMapModel::setData(const QModelIndex& index, const QVariant& value, int 
     if (result)
     {
         if (index.row() == TemplateID)
+        {
             _cellmap->setTemplateID(value.toInt());
+            emit dataSubmitted();
+        }
     }
     return result;
 }

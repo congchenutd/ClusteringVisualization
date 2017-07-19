@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget* parent) :
 {
     ui.setupUi(this);
 
-    onCurrentTabChanged(ui.tabWidget->currentIndex());
+    onCurrentTabChanged(ui.tabWidget->currentIndex());  // load default page
 
     connect(ui.tabWidget,       &QTabWidget::currentChanged,   this, &MainWindow::onCurrentTabChanged);
     connect(ui.actionReload,    &QAction::triggered, this, &MainWindow::onReload);

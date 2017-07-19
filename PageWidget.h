@@ -11,6 +11,9 @@
 
 class ShapeItem;
 
+/**
+ * Base of the pages
+ */
 class PageWidget : public IPage
 {
     Q_OBJECT
@@ -28,6 +31,7 @@ protected:
 private slots:
     void onFileClicked(const QModelIndex& idx);
     void onCellMapSelected(CellMap* cellmap);
+    void onCellMapModified();
 
 protected:
     Ui::PageWidget ui;
