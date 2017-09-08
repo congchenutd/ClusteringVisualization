@@ -7,6 +7,7 @@ ShapeItem::ShapeItem(CellMap* cellmap, QGraphicsItem* parent)
       _cellmap (cellmap)
 {
     setFlag(QGraphicsItem::ItemIsSelectable, true);
+    setFlag(QGraphicsItem::ItemIsMovable, true);
 }
 
 QList<QColor> ShapeItem::_colors = QList<QColor>()  << Qt::blue
@@ -43,7 +44,7 @@ void ShapeItem::paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
         for (int col = 0; col < _cellmap->columnCount(); ++col)
         {
             int x = static_cast<int>(bottomLeft.x()) + CellSize * col;
-            int y = static_cast<int>(bottomLeft.y()) - CellSize * (_cellmap->rowCount() - row);
+            int y = static_cast<int>(bottomLeft.y()) - CellSize * (row + 1);
             auto colorID = (*_cellmap)[row][col];
             if (colorID > -1)
             {

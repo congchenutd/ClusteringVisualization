@@ -7,12 +7,14 @@
 
 CellMap::CellMap()
     : _id(-1),
-      _templateID (-1)
+      _templateID (-1),
+      _clusterID (-1)
 {}
 
 CellMap::CellMap(int id, int nRows, int nCols)
     : _id (id),
       _templateID (-1),
+      _clusterID (-1),
       _array(nRows, QVector<int>(nCols))
 {}
 
@@ -54,6 +56,14 @@ void CellMap::setDateTime(const QDateTime& dateTime) {
     _dateTime = dateTime;
 }
 
+int CellMap::getClusterID() const {
+    return _clusterID;
+}
+
+void CellMap::setClusterID(int cluster) {
+    _clusterID = cluster;
+}
+
 QString CellMap::getValues() const
 {
     QStringList result;
@@ -78,8 +88,10 @@ CellMap* CellMap::fromJson(const QJsonObject& jsonObj)
     int nCols   = cellmapJsonObj.value("nCols").toInt();
     CellMap* cellmap = new CellMap(id, nRows, nCols);
     cellmap->setDateTime(dateTime);
-    if (cellmapJsonObj.contains("templateid"))
-        cellmap->setTemplateID(cellmapJsonObj.value("templateid").toInt());
+    if (cellmapJsonObj.contains("templateID"))
+        cellmap->setTemplateID(cellmapJsonObj.value("templateID").toInt());
+    if (cellmapJsonObj.contains("clusterID"))
+        cellmap->setClusterID(cellmapJsonObj.value("clusterID").toInt());
 
     // values
     QJsonArray values = cellmapJsonObj.value("values").toArray();
@@ -87,7 +99,7 @@ CellMap* CellMap::fromJson(const QJsonObject& jsonObj)
     int col = 0;
     foreach (auto value, values)
     {
-        (*cellmap)[nRows - row - 1][col++] = value.toInt();
+        (*cellmap)[row][col++] = value.toInt(); // row 0 is the bottom
         if (col == nCols)
         {
             row ++;
@@ -122,7 +134,8 @@ QJsonObject CellMap::toJson() const
     cellmapJsonObj.insert("id",         getID());
     cellmapJsonObj.insert("nRows",      rowCount());
     cellmapJsonObj.insert("nCols",      columnCount());
-    cellmapJsonObj.insert("templateid", getTemplateID());
+    cellmapJsonObj.insert("clusterID",  getClusterID());
+    cellmapJsonObj.insert("templateID", getTemplateID());
     QJsonArray array;
     for (int row = 0; row < rowCount(); ++row)
         for (int col = 0; col < columnCount(); ++col)

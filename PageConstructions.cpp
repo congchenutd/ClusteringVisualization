@@ -18,10 +18,7 @@ void PageConstructions::reload()
 void PageConstructions::fileClicked(const QModelIndex& idx)
 {
     auto filePath = _fsModel.data(idx).toString();
-    _fileModel.setFilePath(filePath);
+    _fileModel.setCellmapFilePath(filePath);
 
-    _scene.setClusters(_fileModel.getCellMaps());
-    _scene.setSceneRect(_scene.itemsBoundingRect());
-    ui.graphicsView->setSceneRect(_scene.sceneRect().adjusted(-50, -50, 100, 100));
-    ui.graphicsView->zoomActual();
+    _scene.updateLayout(false);
 }

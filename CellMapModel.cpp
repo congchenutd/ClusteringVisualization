@@ -7,12 +7,13 @@ CellMapModel::CellMapModel(QObject* parent)
 {
     setColumnCount(1);
     setHeaderData(0, Qt::Horizontal, tr("Value"));
-    setRowCount(6);
+    setRowCount(Count);
     setHeaderData(ID,           Qt::Vertical, tr("ID"));
-    setHeaderData(TemplateID,   Qt::Vertical, tr("TemplateID"));
+    setHeaderData(TemplateID,   Qt::Vertical, tr("Template ID"));
     setHeaderData(RowCount,     Qt::Vertical, tr("Row count"));
     setHeaderData(ColumnCount,  Qt::Vertical, tr("Column count"));
     setHeaderData(DateTime,     Qt::Vertical, tr("Date time"));
+    setHeaderData(ClusterID,      Qt::Vertical, tr("Cluster ID"));
     setHeaderData(Values,       Qt::Vertical, tr("Values"));
 }
 
@@ -34,6 +35,8 @@ QVariant CellMapModel::data(const QModelIndex& index, int role) const
             return _cellmap->columnCount();
         case DateTime:
             return _cellmap->getDateTime();
+        case ClusterID:
+            return _cellmap->getClusterID();
         case Values:
             return _cellmap->getValues();
         }
@@ -50,6 +53,11 @@ bool CellMapModel::setData(const QModelIndex& index, const QVariant& value, int 
         if (index.row() == TemplateID)
         {
             _cellmap->setTemplateID(value.toInt());
+            emit dataSubmitted();
+        }
+        else if (index.row() == ClusterID)
+        {
+            _cellmap->setClusterID(value.toInt());
             emit dataSubmitted();
         }
     }

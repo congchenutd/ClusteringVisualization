@@ -28,6 +28,9 @@ public:
     QDateTime getDateTime() const;
     void setDateTime(const QDateTime& dateTime);
 
+    int getClusterID() const;
+    void setClusterID(int cluster);
+
     QString getValues() const;                  // values to a 1d comma-separated String
 
     QVector<int>& operator[] (int index);
@@ -40,6 +43,7 @@ private:
     int                     _id;
     int                     _templateID;
     QDateTime               _dateTime;
+    int                     _clusterID;
     QVector<QVector<int>>   _array;     // 2d array
 };
 

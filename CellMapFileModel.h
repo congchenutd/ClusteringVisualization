@@ -11,14 +11,20 @@
 class CellMapFileModel
 {
 public:
-    void setFilePath(const QString& filePath);
+    void setCellmapFilePath (const QString& filePath);
+    void setClustersFilePath(const QString& filePath);
+
     CellMap* getCellMap(int id) const;
-    QList<Cluster> getCellMaps() const;
+    Clusters getCellMaps() const;
+
+    Clusters getClusters() const;
+
     void save();
 
 private:
-    QString  _filePath;
-    CellMaps _cellmaps;
+    QString     _cellmapFilePath;
+    QString     _clustersFilePath;
+    CellMaps    _cellmaps;
 };
 
 #endif // CELLMAPFILEMODEL_H

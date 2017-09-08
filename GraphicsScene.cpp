@@ -1,6 +1,7 @@
 #include "GraphicsScene.h"
 #include "ShapeItem.h"
 #include "CellMapFileModel.h"
+#include "GraphicsView.h"
 
 GraphicsScene::GraphicsScene(QObject* parent)
     : QGraphicsScene (parent)
@@ -12,28 +13,13 @@ void GraphicsScene::setFileModel(CellMapFileModel* model) {
     _fileModel = model;
 }
 
-void GraphicsScene::setClusters(const QList<Cluster>& clusters)
+void GraphicsScene::setClusters(const Clusters& clusters)
 {
     clear();
 
     const int nRows     = 24;
     const int height    = ShapeItem::CellSize * nRows;
     const int space     = 20;
-
-//    if (clusters.isEmpty())
-//    {
-//        int row = 0;
-//        for (int id = 1; id <= _fileModel->getCellMapCount(); ++id)
-//        {
-//            int x = 0;
-//            int y = (height + space) * row++;
-//            auto item = new ShapeItem(_fileModel->getCellMap(id));
-//            addItem(item);
-//            item->setPos(x + item->boundingRect().width() / 2, y);
-//        }
-//        return;
-//    }
-
 
     // Create ShapeItems and place them on the scene one cluster a row
     int row = 0;
@@ -43,12 +29,26 @@ void GraphicsScene::setClusters(const QList<Cluster>& clusters)
         int y = (height + space) * row++;
         foreach (auto id, cluster)
         {
-            auto item = new ShapeItem(_fileModel->getCellMap(id));
+            auto cellmap = _fileModel->getCellMap(id);
+            auto item = new ShapeItem(cellmap);
             addItem(item);
             item->setPos(x + item->boundingRect().width() / 2, y);
             x += item->boundingRect().width() + space;
         }
     }
+}
+
+void GraphicsScene::updateLayout(bool clustering)
+{
+    if (clustering)
+        setClusters(_fileModel->getClusters());
+    else
+        setClusters(_fileModel->getCellMaps());
+
+    setSceneRect(itemsBoundingRect());
+    auto view = static_cast<GraphicsView*>(views().front());
+    view->setSceneRect(sceneRect().adjusted(-50, -50, 100, 100));
+    view->zoomActual();
 }
 
 void GraphicsScene::onItemSelected()

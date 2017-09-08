@@ -26,7 +26,7 @@ signals:
 private:
     CellMap* _cellmap;
 
-    enum {ID, TemplateID, RowCount, ColumnCount, DateTime, Values};
+    enum {ID, TemplateID, RowCount, ColumnCount, DateTime, ClusterID, Values, Count};
 };
 
 #endif // CELLMAPMODEL_H

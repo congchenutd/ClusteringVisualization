@@ -6,6 +6,7 @@
 #include <QGraphicsScene>
 
 typedef QList<int> Cluster;
+typedef QList<Cluster> Clusters;
 
 class ShapeItem;
 class CellMapFileModel;
@@ -20,8 +21,10 @@ class GraphicsScene : public QGraphicsScene
 public:
     GraphicsScene(QObject* parent = Q_NULLPTR);
 
-    void setFileModel(CellMapFileModel* model);
-    void setClusters(const QList<Cluster>& clusters);
+    void setFileModel(CellMapFileModel*  model);
+
+    void setClusters(const Clusters& clusters);
+    void updateLayout(bool clustering = true);
 
 private slots:
     void onItemSelected();

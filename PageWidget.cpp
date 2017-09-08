@@ -11,6 +11,7 @@ PageWidget::PageWidget(QWidget *parent) :
     ui.listView->setRootIndex(_fsModel.index(QDir::currentPath()));
 
     _scene.setFileModel(&_fileModel);
+
     ui.graphicsView->setScene(&_scene);
     ui.tableView->setModel(&_cellmapModel);
 
@@ -50,4 +51,5 @@ void PageWidget::onCellMapSelected(CellMap* cellmap)
 
 void PageWidget::onCellMapModified() {
     _fileModel.save();
+    _scene.updateLayout();
 }
