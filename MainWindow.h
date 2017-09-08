@@ -14,7 +14,7 @@ public:
 
 private slots:
     void onCurrentTabChanged(int index);
-    void onReload();
+    void onLayout();
     void onZoomIn();
     void onZoomOut();
 

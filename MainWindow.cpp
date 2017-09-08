@@ -12,7 +12,7 @@ MainWindow::MainWindow(QWidget* parent) :
     onCurrentTabChanged(ui.tabWidget->currentIndex());  // load default page
 
     connect(ui.tabWidget,       &QTabWidget::currentChanged,   this, &MainWindow::onCurrentTabChanged);
-    connect(ui.actionReload,    &QAction::triggered, this, &MainWindow::onReload);
+    connect(ui.actionLayout,    &QAction::triggered, this, &MainWindow::onLayout);
     connect(ui.actionZoomIn,    &QAction::triggered, this, &MainWindow::onZoomIn);
     connect(ui.actionZoomOut,   &QAction::triggered, this, &MainWindow::onZoomOut);
 }
@@ -23,8 +23,8 @@ void MainWindow::onCurrentTabChanged(int index)
     _currentPage->reload();
 }
 
-void MainWindow::onReload() {
-    _currentPage->reload();
+void MainWindow::onLayout() {
+    _currentPage->autoLayout();
 }
 
 void MainWindow::onZoomIn() {

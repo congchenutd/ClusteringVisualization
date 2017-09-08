@@ -28,6 +28,10 @@ void PageWidget::zoomOut() {
     ui.graphicsView->zoomOut();
 }
 
+void PageWidget::autoLayout() {
+    _scene.updateLayout();
+}
+
 void PageWidget::fileClicked(const QModelIndex& idx) {
     Q_UNUSED(idx)
 }
@@ -51,5 +55,4 @@ void PageWidget::onCellMapSelected(CellMap* cellmap)
 
 void PageWidget::onCellMapModified() {
     _fileModel.save();
-    _scene.updateLayout();
 }

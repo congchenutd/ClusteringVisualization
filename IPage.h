@@ -9,9 +9,10 @@ public:
     IPage(QWidget* parent = 0);
     virtual ~IPage();
 
-    virtual void reload() = 0;
-    virtual void zoomIn() = 0;
-    virtual void zoomOut() = 0;
+    virtual void reload()       = 0;
+    virtual void zoomIn()       = 0;
+    virtual void zoomOut()      = 0;
+    virtual void autoLayout()   = 0;
 };
 
 #endif // IPAGE_H

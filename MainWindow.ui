@@ -58,9 +58,9 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionReload"/>
    <addaction name="actionZoomIn"/>
    <addaction name="actionZoomOut"/>
+   <addaction name="actionLayout"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionReload">
@@ -100,6 +100,18 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+-</string>
+   </property>
+  </action>
+  <action name="actionLayout">
+   <property name="icon">
+    <iconset resource="Resources.qrc">
+     <normaloff>:/Images/Layout.png</normaloff>:/Images/Layout.png</iconset>
+   </property>
+   <property name="text">
+    <string>Auto layout</string>
+   </property>
+   <property name="toolTip">
+    <string>Auto layout</string>
    </property>
   </action>
  </widget>

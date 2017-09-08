@@ -23,6 +23,7 @@ public:
 
     void zoomIn();
     void zoomOut();
+    void autoLayout();
 
 protected:
     virtual void fileClicked(const QModelIndex& idx);
